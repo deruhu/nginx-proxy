@@ -167,6 +167,7 @@ server {
 	{{ end }}
 
 	location / {
+		proxy_set_header X-Forwarded-Ssl on;
 		proxy_pass {{ trim $proto }}://{{ trim $host }};
 		{{ if (exists (printf "/etc/nginx/htpasswd/%s" $host)) }}
 		auth_basic	"Restricted {{ $host }}";
@@ -177,7 +178,6 @@ server {
                 {{ else if (exists "/etc/nginx/vhost.d/default_location") }}
                 include /etc/nginx/vhost.d/default_location;
                 {{ end }}
-                proxy_set_header X-Forwarded-Ssl on;
 	}
 }
 
