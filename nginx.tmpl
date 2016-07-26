@@ -167,7 +167,9 @@ server {
 	{{ end }}
 
 	location / {
+		{{ if (ne $host "auv-tomkyle.de")}}
 		proxy_set_header X-Forwarded-Ssl on;
+		{{ end }}
 		proxy_pass {{ trim $proto }}://{{ trim $host }};
 		{{ if (exists (printf "/etc/nginx/htpasswd/%s" $host)) }}
 		auth_basic	"Restricted {{ $host }}";
