@@ -148,6 +148,8 @@ server {
 	ssl_prefer_server_ciphers on;
 	ssl_session_timeout 45m;
 	ssl_session_cache shared:SSL:50m;
+	client_max_body_size 16384m;
+	proxy_max_temp_file_size 16384m;
 
 	ssl_certificate /etc/nginx/certs/{{ (printf "%s.crt" $cert) }};
 	ssl_certificate_key /etc/nginx/certs/{{ (printf "%s.key" $cert) }};
